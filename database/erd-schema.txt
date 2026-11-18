@@ -1,0 +1,12 @@
+erDiagram
+    users ||--o{ appointments : "asigna/atiende"
+    users ||--o{ patients : "supervisa"
+    users ||--o{ roles : "posee"
+    countries ||--o{ cities : "contiene"
+    cities ||--o{ patients : "ubica"
+    patients ||--o{ appointments : "reserva"
+    patients ||--o{ patient_documents : "archiva"
+    patients ||--o{ ybocs : "evalúa"
+    appointments ||--o| payments : "genera"
+    appointments ||--o{ ybocs : "registra_en_sesion"
+    ybocs ||--|{ ybocs_answers : "contiene"
