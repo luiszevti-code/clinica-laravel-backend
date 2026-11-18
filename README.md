@@ -14,23 +14,6 @@ El sistema implementa una jerarquía estricta de permisos adaptada a la operaci�
 
 ---
 
-## 🏗️ Modelo de Datos y Arquitectura Relacional
-El sistema se apoya en una base de datos relacional altamente normalizada en MySQL/MariaDB, estructurada para separar la lógica transaccional (OLTP) de la analítica operativa:
-
-```mermaid
-erDiagram
-    users ||--o{ appointments : "asigna/atiende"
-    users ||--o{ patients : "supervisa"
-    users ||--o{ roles : "posee"
-    countries ||--o{ cities : "contiene"
-    cities ||--o{ patients : "ubica"
-    patients ||--o{ appointments : "reserva"
-    patients ||--o{ patient_documents : "archiva"
-    patients ||--o{ ybocs : "evalúa"
-    appointments ||--o| payments : "genera"
-    appointments ||--o{ ybocs : "registra_en_sesion"
-    ybocs ||--|{ ybocs_answers : "contiene"
-
 * **Entidades Principales:** `users` (Gestión de roles y permisos para administradores y psicólogos), `patients` (Ficha clínica integral con segmentación geográfica normalizada mediante `countries` y `cities`)[cite: 15], y `appointments` (Núcleo operativo con control de modalidades, estados y notas de evolución TCC/EPR).
 * **Módulos Especializados:** 
   * Sistema de evaluación psicométrica automatizada (`ybocs` y `ybocs_answers`).
