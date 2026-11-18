@@ -1,13 +1,35 @@
 # Sistema de Gestión Clínica y Analítica (ERP Salud Mental)
 
-Plataforma web en producción diseñada para optimizar la gestión administrativa, el agendamiento clínico de sesiones, el control financiero y el seguimiento psicométrico (escalas YBOCS) para una institución de salud mental.
+Plataforma web desarrollada en **PHP (Laravel)** y desplegada en **producción en Hostinger**, diseñada para la gestión clínica integral, agendamiento de sesiones, control financiero y seguimiento psicométrico (escalas YBOCS) para una institución de salud mental.
 
 > **Nota de Confidencialidad:** Tratándose de un sistema activo en producción que maneja información clínica sensible, este repositorio funciona como un **caso de estudio arquitectónico**. Se han omitido credenciales, datos reales de usuarios y el código fuente propietario; las capturas de pantalla utilizan entornos de prueba sanitizados.
 
 ---
 
-## 🏗️ Arquitectura de Datos y Modelo Relacional
-El sistema está construido sobre una base de datos relacional altamente normalizada en MySQL/MariaDB, diseñada para soportar operaciones transaccionales diarias (OLTP) y consultas de agregación analítica (BI):
+## 👥 Arquitectura de Control de Acceso y Roles (RBAC)
+El sistema implementa una jerarquía estricta de permisos adaptada a la operación real de la clínica:
+* **Psicólogos:** Acceso enfocado a la gestión de sus propios pacientes asignados, control de agendas y registro cronológico de historias clínicas/sesiones.
+* **Administradores:** Supervisión de la asignación de citas, reportes gerenciales de analítica y control general del personal clínico.
+* **Super Administrador:** Acceso total al sistema, control de roles y administración exclusiva del módulo de auditoría y **papelera (elementos eliminados)** para la recuperación segura de información crítica.
+
+---
+
+## 🏗️ Modelo de Datos y Arquitectura Relacional
+El sistema se apoya en una base de datos relacional altamente normalizada en MySQL/MariaDB, estructurada para separar la lógica transaccional (OLTP) de la analítica operativa:
+
+```mermaid
+erDiagram
+    users ||--o{ appointments : "asigna/atiende"
+    users ||--o{ patients : "supervisa"
+    users ||--o{ roles : "posee"
+    countries ||--o{ cities : "contiene"
+    cities ||--o{ patients : "ubica"
+    patients ||--o{ appointments : "reserva"
+    patients ||--o{ patient_documents : "archiva"
+    patients ||--o{ ybocs : "evalúa"
+    appointments ||--o| payments : "genera"
+    appointments ||--o{ ybocs : "registra_en_sesion"
+    ybocs ||--|{ ybocs_answers : "contiene"
 
 * **Entidades Principales:** `users` (Gestión de roles y permisos para administradores y psicólogos), `patients` (Ficha clínica integral con segmentación geográfica normalizada mediante `countries` y `cities`)[cite: 15], y `appointments` (Núcleo operativo con control de modalidades, estados y notas de evolución TCC/EPR).
 * **Módulos Especializados:** 
@@ -23,7 +45,7 @@ El sistema está construido sobre una base de datos relacional altamente normali
 * **Backend:** PHP 8.x, Laravel Framework, Eloquent ORM.
 * **Base de Datos:** MySQL / MariaDB (Optimización con índices en claves foráneas y consultas analíticas).
 * **Frontend / UI:** Blade Templates, HTML5, CSS3, JavaScript.
-* **Infraestructura:** Despliegue en entorno de producción (Hostinger).
+* **Infraestructura:** Despliegue en entorno de producción (Hostinger) con gestión segura de almacenamiento y variables de entorno.
 
 ---
 
