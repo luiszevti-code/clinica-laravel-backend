@@ -1,19 +1,19 @@
 # Sistema de Gestión Clínica y Analítica (ERP Salud Mental)
 
-Plataforma web en producción diseñada para optimizar la gestión administrativa, el agendamiento clínico de sesiones, el control financiero y el seguimiento psicométrico (escalas YBOCS) para una institución de salud mental[cite: 2, 3, 5, 15].
+Plataforma web en producción diseñada para optimizar la gestión administrativa, el agendamiento clínico de sesiones, el control financiero y el seguimiento psicométrico (escalas YBOCS) para una institución de salud mental.
 
-> **Nota de Confidencialidad:** Tratándose de un sistema activo en producción que maneja información clínica sensible, este repositorio funciona como un **caso de estudio arquitectónico**. Se han omitido credenciales, datos reales de usuarios y el código fuente propietario; las capturas de pantalla utilizan entornos de prueba sanitizados[cite: 3].
+> **Nota de Confidencialidad:** Tratándose de un sistema activo en producción que maneja información clínica sensible, este repositorio funciona como un **caso de estudio arquitectónico**. Se han omitido credenciales, datos reales de usuarios y el código fuente propietario; las capturas de pantalla utilizan entornos de prueba sanitizados.
 
 ---
 
 ## 🏗️ Arquitectura de Datos y Modelo Relacional
-El sistema está construido sobre una base de datos relacional altamente normalizada en MySQL/MariaDB[cite: 15], diseñada para soportar operaciones transaccionales diarias (OLTP) y consultas de agregación analítica (BI):
+El sistema está construido sobre una base de datos relacional altamente normalizada en MySQL/MariaDB, diseñada para soportar operaciones transaccionales diarias (OLTP) y consultas de agregación analítica (BI):
 
-* **Entidades Principales:** `users` (Gestión de roles y permisos para administradores y psicólogos)[cite: 15], `patients` (Ficha clínica integral con segmentación geográfica normalizada mediante `countries` y `cities`)[cite: 15], y `appointments` (Núcleo operativo con control de modalidades, estados y notas de evolución TCC/EPR)[cite: 15].
+* **Entidades Principales:** `users` (Gestión de roles y permisos para administradores y psicólogos), `patients` (Ficha clínica integral con segmentación geográfica normalizada mediante `countries` y `cities`)[cite: 15], y `appointments` (Núcleo operativo con control de modalidades, estados y notas de evolución TCC/EPR).
 * **Módulos Especializados:** 
-  * Sistema de evaluación psicométrica automatizada (`ybocs` y `ybocs_answers`)[cite: 15].
-  * Repositorio seguro de documentos clínicos por paciente (`patient_documents`)[cite: 15].
-  * Módulo de auditoría y recuperación mediante borrado lógico (`deleted_at` / Papelera)[cite: 11, 15].
+  * Sistema de evaluación psicométrica automatizada (`ybocs` y `ybocs_answers`).
+  * Repositorio seguro de documentos clínicos por paciente (`patient_documents`).
+  * Módulo de auditoría y recuperación mediante borrado lógico (`deleted_at` / Papelera).
 
 *(Ver diagrama completo en `/database/erd-schema.md`)*
 
@@ -29,11 +29,11 @@ El sistema está construido sobre una base de datos relacional altamente normali
 
 ## 📸 Módulos Principales (Entorno Sanitizado)
 
-1. **Autenticación Segura (Login):** Acceso por roles restringido (`Super Admin`, `Administrador`, `Psicólogos`)[cite: 14, 15].
-2. **Gestión Integral de Citas y Pacientes:** Filtros avanzados multi-variable (por nombre, país, ciudad, género, modalidad y especialista)[cite: 2, 13].
-3. **Agenda y Disponibilidad:** Visualización interactiva de bloques horarios por profesional[cite: 10].
-4. **Módulo de Analítica y Reportes (BI):** Paneles nativos que transforman registros transaccionales en métricas gerenciales (distribución demográfica por género, país, cargas de trabajo por psicólogo y líneas de tiempo mensuales)[cite: 6, 7, 8, 9].
-5. **Papelera / Elementos Eliminados:** Prevención de pérdida de datos con restauración independiente por entidad (*Soft Delete Restore*)[cite: 11].
+1. **Autenticación Segura (Login):** Acceso por roles restringido (`Super Admin`, `Administrador`, `Psicólogos`).
+2. **Gestión Integral de Citas y Pacientes:** Filtros avanzados multi-variable (por nombre, país, ciudad, género, modalidad y especialista).
+3. **Agenda y Disponibilidad:** Visualización interactiva de bloques horarios por profesional.
+4. **Módulo de Analítica y Reportes (BI):** Paneles nativos que transforman registros transaccionales en métricas gerenciales (distribución demográfica por género, país, cargas de trabajo por psicólogo y líneas de tiempo mensuales).
+5. **Papelera / Elementos Eliminados:** Prevención de pérdida de datos con restauración independiente por entidad (*Soft Delete Restore*).
 
 ---
 
