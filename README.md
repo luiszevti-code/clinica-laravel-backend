@@ -41,4 +41,4 @@ El sistema está construido sobre una base de datos relacional altamente normali
 Este proyecto refleja mi capacidad de tender un puente natural entre el **desarrollo de software robusto** y la **ingeniería de datos**: un sistema transaccional bien estructurado garantiza que la ingesta, limpieza y consulta posterior de datos para análisis o machine learning sea limpia, estructurada y confiable desde la raíz.
 
 ---
-> **Diseño y desarrollo:** Luis Zevallos · [MentDev](https://github.com/luiszevti)
+> **Diseño y desarrollo:** Luis Zevallos · [MentDev](https://www.facebook.com/profile.php?id=61582344438020)
